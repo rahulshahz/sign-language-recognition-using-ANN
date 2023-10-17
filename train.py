@@ -41,8 +41,6 @@ model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.0001),  # Adjust l
 # Train the model (you may need to adjust the number of epochs and batch size)
 model.fit(data_padded, labels_encoded, epochs=50, batch_size=64, validation_split=0.2, verbose=1)
 
-# Save the model to a file
-model.save("model.p")
 
 # Calculate the cross-validation score using StratifiedKFold
 cv = StratifiedKFold(n_splits=5)
