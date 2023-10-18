@@ -39,7 +39,7 @@ mp_drawing_styles = mp.solutions.drawing_styles
 hands = mp_hands.Hands(static_image_mode=False, min_detection_confidence=0.9, min_tracking_confidence=0.9)
 
 # Sign language labels dictionary
-labels_dict = {0: "hello", 1: "i love you", 2: "yes", 3: "good", 4: "bad", 5: "okay", 6: "you", 7: "I am", 8: "why", 9: "no", 10: 'A'}
+labels_dict = {0: "A", 1: "I am", 2: "bad", 3: "good", 4: "hello", 5: "I love you", 6: "no", 7: "okay", 8: "why", 9: "yes",10:"you"}
 reversed_labels_dict = {v: k for k, v in labels_dict.items()}
 def generate_frames():
     lastElement = "string"
@@ -84,7 +84,9 @@ def generate_frames():
                     y1 = int(min(y_) * H) - 10
                     x2 = int(max(x_) * W) - 10
                     y2 = int(max(y_) * H) - 10
-                    data_aux = np.array(data_aux).reshape(1, 42)  # Reshape to (1, 84)
+                    data_aux.extend(data_aux)
+
+                    data_aux = np.array(data_aux).reshape(1, 84)  # Reshape to (1, 84)
                     prediction = model.predict(data_aux)  # Use the reshaped data_aux
 
                     check = np.argmax(prediction[0])

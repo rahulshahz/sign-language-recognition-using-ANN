@@ -18,7 +18,7 @@ mp_drawing_styles = mp.solutions.drawing_styles
 hands = mp_hands.Hands(static_image_mode=False, min_detection_confidence=0.9, min_tracking_confidence=0.9)
 
 # Define a dictionary that maps numerical labels to sign language words
-labels_dict = {0: "hello", 1: "i love you", 2: "yes", 3: "good", 4: "bad", 5: "okay", 6: "you", 7: "I am", 8: "why", 9: "no", 10: 'A'}
+labels_dict = {0: "A", 1: "I am", 2: "bad", 3: "good", 4: "hello", 5: "I love you", 6: "no", 7: "okay", 8: "why", 9: "yes",10:"you"}
 
 # Create a reversed dictionary to map sign language words back to numerical labels
 reversed_labels_dict = {v: k for k, v in labels_dict.items()}
@@ -73,7 +73,8 @@ while True:
             y2 = int(max(y_) * H) - 10
 
             # Ensure data_aux has the correct shape
-            data_aux = np.array(data_aux).reshape(1, 42)  # Reshape to (1, 42)
+            data_aux.extend(data_aux)
+            data_aux = np.array(data_aux).reshape(1, 84)  # Reshape to (1, 42)
             
             # Make a prediction using the loaded model
             prediction = model.predict(data_aux)
