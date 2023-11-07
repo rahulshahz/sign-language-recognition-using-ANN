@@ -21,7 +21,7 @@ max_length = max(len(seq) for seq in data)
 # Pad the sequences to the maximum length
 data_padded = np.array([np.pad(seq, (0, max_length - len(seq))) for seq in data])
 
-# Shuffle the data and labels for cross-validation
+# Shuffle the data and labels
 data_padded, labels_encoded = shuffle(data_padded, labels_encoded)
 
 # Create an improved neural network model
@@ -38,12 +38,30 @@ model = keras.Sequential([
 model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.0001),  # Adjust learning rate
               loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-# Train the model (you may need to adjust the number of epochs and batch size)
-model.fit(data_padded, labels_encoded, epochs=50, batch_size=64, validation_split=0.2, verbose=1)
+# Define the number of folds for cross-validation
+n_splits = 5
 
+# Initialize StratifiedKFold for cross-validation
+cv = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
 
-# Calculate the cross-validation score using StratifiedKFold
-cv = StratifiedKFold(n_splits=5)
-accuracy = model.evaluate(data_padded, labels_encoded, verbose=0)
-print(f"Accuracy: {accuracy[1] * 100:.2f}%")
+# Create a list to store accuracy for each fold
+accuracies = []
+
+# Perform cross-validation
+for train_index, test_index in cv.split(data_padded, labels_encoded):
+    X_train, X_test = data_padded[train_index], data_padded[test_index]
+    y_train, y_test = labels_encoded[train_index], labels_encoded[test_index]
+    
+    # Train the model on the training data
+    model.fit(X_train, y_train, epochs=50, batch_size=64, verbose=0)
+    
+    # Evaluate the model on the test data
+    accuracy = model.evaluate(X_test, y_test, verbose=1)[1]
+    accuracies.append(accuracy)
+
+# Calculate and print the mean accuracy across all folds
+mean_accuracy = np.mean(accuracies)
+print(f"Mean Accuracy: {mean_accuracy * 100:.2f}%")
+
+# Save the model
 model.save("model.h5")
