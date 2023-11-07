@@ -73,8 +73,8 @@ while True:
             y2 = int(max(y_) * H) - 10
 
             # Ensure data_aux has the correct shape
-            data_aux.extend(data_aux)
-            data_aux = np.array(data_aux).reshape(1, 84)  # Reshape to (1, 42)
+            # data_aux.extend(data_aux)
+            data_aux = np.array(data_aux).reshape(1, 42)  # Reshape to (1, 42)
             
             # Make a prediction using the loaded model
             prediction = model.predict(data_aux)

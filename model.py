@@ -3,7 +3,7 @@ import os
 import cv2
 
 # Define the directory where data will be saved
-DATA_DIR = "./data"
+DATA_DIR = "./images"
 
 # Create the data directory if it doesn't exist
 if not os.path.exists(DATA_DIR):
@@ -11,7 +11,7 @@ if not os.path.exists(DATA_DIR):
 
 # Define the number of classes and the dataset size for each class
 num_classes = 10
-dataset_size = 500
+dataset_size = 100
 
 # Define a dictionary to map class labels to class names
 labels_dict = {0: "hello", 1: "i love you", 2: "yes", 3: "good", 4: "bad", 5: "okay", 6: "you", 7: "I am", 8: "why", 9: "no", 10: 'A'}

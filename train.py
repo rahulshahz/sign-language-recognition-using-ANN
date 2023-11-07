@@ -7,7 +7,7 @@ import tensorflow as tf
 from tensorflow import keras
 
 # Load your data
-data_dict = pickle.load(open("./data.pickle", "rb"))
+data_dict = pickle.load(open("./data1.pickle", "rb"))
 data = data_dict["data"]
 labels = data_dict["labels"]
 

@@ -10,7 +10,7 @@ mp_drawing_styles = mp.solutions.drawing_styles
 hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.5)
 
 # Define the directory where image data is stored
-data_dir = "./data"
+data_dir = "./images"
 
 # Initialize lists to store data and corresponding labels
 data = []
@@ -37,6 +37,6 @@ for dir_ in os.listdir(data_dir):
             labels.append(dir_)  # Append the corresponding label to the labels list
 
 # Create a binary file to store the data and labels using Pickle
-file = open("data.pickle", "wb")
+file = open("data1.pickle", "wb")
 pickle.dump({"data": data, "labels": labels}, file)
 file.close()
